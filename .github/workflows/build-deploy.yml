@@ -1,0 +1,76 @@
+# Push to staging: build the image once, then ask the platform to deploy it to staging.
+# Push (merge) to main: no build; ask the platform to promote the same image to prod.
+# The tag is git's tree hash of the repo content, so a merge (any style) maps to the image
+# staging tested. Only the platform repo deploys; this repo only triggers its Deploy workflow.
+name: Build and deploy
+
+on:
+  push:
+    branches: [staging, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  APP: fe-main-user                                  # folder in the platform repo's apps/
+  PLATFORM_REPO: tjm-thomas/2026-kubernetes-platform
+  IMAGE_REPO: ghcr.io/tjm-thomas/2026-kanso-fe-main-user
+  ENV: ${{ github.ref_name == 'main' && 'prod' || 'staging' }}
+
+concurrency:
+  group: build-deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Work out the image tag
+        run: |
+          echo "IMAGE=${IMAGE_REPO}:$(git rev-parse --short=12 'HEAD^{tree}')" >> "${GITHUB_ENV}"
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build and push (staging only, skipped if this content was built before)
+        if: env.ENV == 'staging'
+        run: |
+          if docker manifest inspect "${IMAGE}" >/dev/null 2>&1; then
+            echo "${IMAGE} already exists, not rebuilding"
+            exit 0
+          fi
+          docker build --build-arg "VERSION=${IMAGE##*:}" \
+            --label "org.opencontainers.image.source=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+            -t "${IMAGE}" .
+          docker push "${IMAGE}"
+
+      - name: Check the cluster can pull the image (no login)
+        run: |
+          docker logout ghcr.io
+          if ! docker manifest inspect "${IMAGE}" >/dev/null 2>&1; then
+            echo "Cannot pull ${IMAGE} without a login." >&2
+            [ "${ENV}" = prod ] && echo "It is not in the registry: push this change to staging first." >&2
+            echo "If it exists, make the package public: GitHub > tjm-thomas > Packages > $(basename "${IMAGE_REPO}") > Package settings." >&2
+            exit 1
+          fi
+
+      - name: Ask the platform to deploy
+        env:
+          TOKEN: ${{ secrets.PLATFORM_DEPLOY_TOKEN }}
+        run: |
+          [ -n "${TOKEN}" ] || { echo "Secret PLATFORM_DEPLOY_TOKEN is not set" >&2; exit 1; }
+          jq -n --arg app "${APP}" --arg env "${ENV}" --arg image "${IMAGE}" \
+                --arg source "${GITHUB_REPOSITORY}@${GITHUB_SHA::7}" \
+                '{ref: "main", inputs: {app: $app, env: $env, image: $image, source: $source}}' \
+            | curl -fsS -X POST \
+                -H "Authorization: Bearer ${TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/${PLATFORM_REPO}/actions/workflows/deploy.yml/dispatches" \
+                -d @-
+          echo "Deploy of ${IMAGE} to ${ENV} requested."
+          echo "Follow it at ${GITHUB_SERVER_URL}/${PLATFORM_REPO}/actions/workflows/deploy.yml"
+          [ "${ENV}" = prod ] && echo "prod waits for approval there." || true

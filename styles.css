@@ -161,6 +161,7 @@ ol, ul { list-style: none; margin: 0; padding: 0; }
   background: var(--shu); margin-right: 12px; vertical-align: middle;
 }
 
+.test-banner { font-family: var(--serif); font-size: clamp(48px, 10vw, 128px); line-height: 1; color: var(--shu); margin-bottom: 32px; }
 .hero h1 { font-size: clamp(40px, 6vw, 76px); line-height: 1.12; }
 .lede { max-width: 30em; margin-top: 32px; color: var(--ink-soft); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 44px; }
@@ -282,6 +283,15 @@ ol, ul { list-style: none; margin: 0; padding: 0; }
 .dashboard { padding-top: 56px; padding-bottom: 64px; border-top: 0; }
 .dashboard h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.15; }
 .dashboard .section-head { margin-bottom: 24px; }
+
+.release { padding-top: 56px; padding-bottom: 64px; border-top: 0; }
+.release h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.15; }
+.release .section-head { margin-bottom: 40px; }
+.release-version { font-size: clamp(36px, 7vw, 72px); color: var(--shu); line-height: 1; overflow-wrap: anywhere; }
+.release-note { max-width: 36em; margin-top: 20px; color: var(--ink-soft); font-size: 13px; }
+.release-title { margin-top: 64px; font-size: 22px; }
+.release-list { margin-top: 20px; border-top: 1px solid var(--line); }
+.release-list li { padding: 16px 0; border-bottom: 1px solid var(--line); }
 .cube-stage {
   display: grid; justify-content: center; align-items: center; gap: 8px;
   grid-template-areas: ". up ." "left scene right" ". down .";
