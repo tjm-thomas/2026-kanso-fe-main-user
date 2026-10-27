@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanso — Infrastructure, reduced</title>
+  <meta name="description" content="Kanso is a quiet platform for shipping services. Nothing extra, nothing missing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500&family=Noto+Sans+JP:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Kanso home">
+      <span class="hanko" aria-hidden="true">簡</span>
+      <span class="brand-name">Kanso</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#status">Status</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="#join" class="nav-cta">Request access</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle night mode">
+      <span class="theme-day">昼</span><span class="theme-night">夜</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <p class="vertical hero-vertical" aria-hidden="true">簡素 — 余計なものは何もない</p>
+      <div class="hero-body">
+        <p class="eyebrow mono">01 / 簡素 · simplicity</p>
+        <h1>Infrastructure,<br>reduced to what<br>matters.</h1>
+        <p class="lede">Kanso is a quiet platform for shipping services. Deploy, scale and observe, without the noise.</p>
+        <div class="hero-actions">
+          <a href="#join" class="btn btn-primary">Request access</a>
+          <a href="#platform" class="btn btn-ghost">How it works <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <aside class="hero-meta" aria-label="Tokyo time">
+        <div class="clock">
+          <span class="mono clock-label">東京 TOKYO</span>
+          <span class="clock-time mono" id="clock">--:--:--</span>
+        </div>
+        <svg class="city" viewBox="0 0 320 220" role="img" aria-label="Line drawing of a city block grid">
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M0 40H320M0 100H320M0 160H320M60 0V220M150 0V220M250 0V220" opacity=".25"/>
+            <rect x="72" y="52" width="66" height="36"/>
+            <rect x="162" y="112" width="76" height="36"/>
+            <rect x="262" y="52" width="46" height="96"/>
+            <rect x="12" y="112" width="36" height="96"/>
+          </g>
+          <path class="line-route" d="M0 190H100V130H200V70H320" fill="none" stroke-width="3"/>
+          <g class="stations">
+            <circle cx="100" cy="190" r="6"/>
+            <circle cx="200" cy="130" r="6"/>
+            <circle cx="260" cy="70" r="6"/>
+          </g>
+        </svg>
+      </aside>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="philosophy" class="section">
+      <header class="section-head">
+        <p class="eyebrow mono">02 / 哲学 · philosophy</p>
+        <h2>Three principles.<br>Nothing more.</h2>
+      </header>
+      <ol class="principles">
+        <li class="principle">
+          <span class="kanji" aria-hidden="true">簡</span>
+          <h3>Kanso <span class="jp">簡素</span></h3>
+          <p>Remove until it breaks, then add one thing back. Every setting has to earn its place.</p>
+        </li>
+        <li class="principle">
+          <span class="kanji" aria-hidden="true">間</span>
+          <h3>Ma <span class="jp">間</span></h3>
+          <p>Space is a feature. Clear boundaries between services, between teams, between alerts.</p>
+        </li>
+        <li class="principle">
+          <span class="kanji" aria-hidden="true">静</span>
+          <h3>Seijaku <span class="jp">静寂</span></h3>
+          <p>Calm in the middle of a busy city. Systems that run quietly and speak up only when it matters.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Platform: styled like a train line -->
+    <section id="platform" class="section">
+      <header class="section-head">
+        <p class="eyebrow mono">03 / 路線 · the line</p>
+        <h2>From commit to city scale<br>in four stops.</h2>
+      </header>
+      <ol class="route">
+        <li class="stop">
+          <span class="stop-code mono">K01</span>
+          <div>
+            <h3>Push <span class="jp">押</span></h3>
+            <p>Connect a repository. Kanso reads your container and infers the rest.</p>
+          </div>
+        </li>
+        <li class="stop">
+          <span class="stop-code mono">K02</span>
+          <div>
+            <h3>Build <span class="jp">築</span></h3>
+            <p>Reproducible images, cached layers, signed artifacts. No pipeline YAML to tend.</p>
+          </div>
+        </li>
+        <li class="stop">
+          <span class="stop-code mono">K03</span>
+          <div>
+            <h3>Deploy <span class="jp">展</span></h3>
+            <p>Rolling releases across regions, with one-keystroke rollback when you need it.</p>
+          </div>
+        </li>
+        <li class="stop">
+          <span class="stop-code mono">K04</span>
+          <div>
+            <h3>Observe <span class="jp">観</span></h3>
+            <p>Logs, metrics and traces on a single calm page. Alerts that respect your evening.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Status board -->
+    <section id="status" class="section">
+      <header class="section-head">
+        <p class="eyebrow mono">04 / 運行 · service status</p>
+        <h2>Running on time.</h2>
+      </header>
+      <div class="board" role="table" aria-label="Service status">
+        <div class="board-row board-head" role="row">
+          <span role="columnheader">Line</span>
+          <span role="columnheader">Region</span>
+          <span role="columnheader">Latency</span>
+          <span role="columnheader">Status</span>
+        </div>
+        <div class="board-row" role="row">
+          <span role="cell" class="mono">API</span>
+          <span role="cell">ap-northeast · 東京</span>
+          <span role="cell" class="mono" data-latency="18">18 ms</span>
+          <span role="cell" class="status ok">平常 Normal</span>
+        </div>
+        <div class="board-row" role="row">
+          <span role="cell" class="mono">EDGE</span>
+          <span role="cell">ap-northeast · 大阪</span>
+          <span role="cell" class="mono" data-latency="24">24 ms</span>
+          <span role="cell" class="status ok">平常 Normal</span>
+        </div>
+        <div class="board-row" role="row">
+          <span role="cell" class="mono">BUILD</span>
+          <span role="cell">eu-west · Frankfurt</span>
+          <span role="cell" class="mono" data-latency="41">41 ms</span>
+          <span role="cell" class="status ok">平常 Normal</span>
+        </div>
+        <div class="board-row" role="row">
+          <span role="cell" class="mono">LOGS</span>
+          <span role="cell">us-east · Virginia</span>
+          <span role="cell" class="mono" data-latency="96">96 ms</span>
+          <span role="cell" class="status warn">遅延 Minor delay</span>
+        </div>
+      </div>
+      <p class="board-note mono">Updated <span id="board-updated">just now</span></p>
+    </section>
+
+    <!-- Join -->
+    <section id="join" class="section join">
+      <div class="join-inner">
+        <p class="eyebrow mono">05 / 招待 · invitation</p>
+        <h2>Less to manage.<br>More room to think.</h2>
+        <form class="join-form" novalidate>
+          <label for="email" class="visually-hidden">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@company.jp" autocomplete="email" required>
+          <button type="submit" class="btn btn-primary">Request access</button>
+        </form>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </div>
+      <span class="join-mark" aria-hidden="true">素</span>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="hanko small" aria-hidden="true">簡</span>
+      <span>Kanso</span>
+    </div>
+    <p class="mono">© 2026 Kanso · 東京 · v<span id="version">…</span></p>
+    <p class="footer-quote">余白を大切に (leave room)</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

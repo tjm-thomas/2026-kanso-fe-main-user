@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanso — Dashboard</title>
+  <meta name="description" content="A still cube that turns only when you ask it to.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500&family=Noto+Sans+JP:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Kanso home">
+      <span class="hanko" aria-hidden="true">簡</span>
+      <span class="brand-name">Kanso</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/#philosophy">Philosophy</a></li>
+        <li><a href="/#platform">Platform</a></li>
+        <li><a href="/#status">Status</a></li>
+        <li><a href="/dashboard" aria-current="page">Dashboard</a></li>
+        <li><a href="/#join" class="nav-cta">Request access</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle night mode">
+      <span class="theme-day">昼</span><span class="theme-night">夜</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="section dashboard">
+      <header class="section-head">
+        <p class="eyebrow mono">計器 · dashboard</p>
+        <h1>One object.<br>Turned by hand.</h1>
+      </header>
+
+      <div class="cube-stage">
+        <button class="cube-btn" type="button" data-dir="up" aria-label="Turn up">↑</button>
+        <button class="cube-btn" type="button" data-dir="left" aria-label="Turn left">←</button>
+
+        <div class="cube-scene" aria-label="Cube. Click an edge, use the buttons, or press the arrow keys to turn it.">
+          <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+          </div>
+          <span class="cube-hint" data-dir="up"></span>
+          <span class="cube-hint" data-dir="right"></span>
+          <span class="cube-hint" data-dir="down"></span>
+          <span class="cube-hint" data-dir="left"></span>
+        </div>
+
+        <button class="cube-btn" type="button" data-dir="right" aria-label="Turn right">→</button>
+        <button class="cube-btn" type="button" data-dir="down" aria-label="Turn down">↓</button>
+      </div>
+
+      <div class="cube-panel mono">
+        <p>Facing you <span class="cube-readout" id="cube-facing">front</span></p>
+        <p>Turns <span class="cube-readout" id="cube-turns">0</span></p>
+        <button class="btn btn-ghost cube-reset" type="button">Reset</button>
+      </div>
+      <p class="cube-note mono">Click an edge of the cube, use the buttons, or press ← ↑ → ↓</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="hanko small" aria-hidden="true">簡</span>
+      <span>Kanso</span>
+    </div>
+    <p class="mono">© 2026 Kanso · 東京 · v<span id="version">…</span></p>
+    <p class="footer-quote">余白を大切に (leave room)</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="cube.js"></script>
+</body>
+</html>

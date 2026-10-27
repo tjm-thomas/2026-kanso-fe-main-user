@@ -1,0 +1,16 @@
+services:
+  fe-main-user:
+    build:
+      context: .
+      args:
+        VERSION: ${KANSO_VERSION:-dev}
+    image: fe-main-user:dev
+    container_name: fe-main-user
+    ports:
+      - "${KANSO_PORT:-8088}:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
