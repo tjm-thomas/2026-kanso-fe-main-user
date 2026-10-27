@@ -48,11 +48,12 @@
   }
 
   // Version: written at build time to /version.txt.
-  const version = document.getElementById("version");
+  const versions = document.querySelectorAll("#version, [data-version]");
+  const showVersion = (v) => versions.forEach((el) => { el.textContent = v; });
   fetch("/version.txt", { cache: "no-store" })
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })
-    .then((t) => { version.textContent = t.trim() || "dev"; })
-    .catch(() => { version.textContent = "dev"; });
+    .then((t) => showVersion(t.trim() || "dev"))
+    .catch(() => showVersion("dev"));
 
   // Access form: client-side only.
   const form = document.querySelector(".join-form");

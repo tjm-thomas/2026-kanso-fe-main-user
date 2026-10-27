@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanso — Release</title>
+  <meta name="description" content="The version this site is running, and what changed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500&family=Noto+Sans+JP:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Kanso home">
+      <span class="hanko" aria-hidden="true">簡</span>
+      <span class="brand-name">Kanso</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/#philosophy">Philosophy</a></li>
+        <li><a href="/#platform">Platform</a></li>
+        <li><a href="/#status">Status</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/release" aria-current="page">Release</a></li>
+        <li><a href="/#join" class="nav-cta">Request access</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle night mode">
+      <span class="theme-day">昼</span><span class="theme-night">夜</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="section release">
+      <header class="section-head">
+        <p class="eyebrow mono">版 · release</p>
+        <h1>What is running,<br>right now.</h1>
+      </header>
+
+      <p class="release-version mono">v<span data-version>…</span></p>
+      <p class="release-note mono">The version is the git tree hash of this site's code. Staging and prod show the same one once a release is promoted.</p>
+
+      <h2 class="release-title">In this release</h2>
+      <ul class="release-list">
+        <li>A Release page (this one), next to Dashboard</li>
+        <li>A large test banner on the home page</li>
+        <li>Built and deployed by the new Kubernetes platform</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="hanko small" aria-hidden="true">簡</span>
+      <span>Kanso</span>
+    </div>
+    <p class="mono">© 2026 Kanso · 東京 · v<span id="version">…</span></p>
+    <p class="footer-quote">余白を大切に (leave room)</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
