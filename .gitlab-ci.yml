@@ -10,7 +10,10 @@ build-deploy:
   rules:
     - if: $CI_COMMIT_BRANCH == "staging" || $CI_COMMIT_BRANCH == "main"
   tags: [builder]
+  # One build per branch at a time (the GitHub workflow's concurrency group); BASH_ENV is
+  # cleared because non-interactive bash would expand it before the script runs.
+  resource_group: "build-deploy-${CI_COMMIT_REF_NAME}"
   variables:
     PLATFORM_PROJECT_ID: "88234882"
   script:
-    - C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail ci/gitlab-build-deploy.sh
+    - $env:BASH_ENV=$null; C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail ci/gitlab-build-deploy.sh
