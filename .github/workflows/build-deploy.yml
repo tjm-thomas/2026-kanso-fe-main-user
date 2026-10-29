@@ -24,7 +24,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # DEPLOY_SYSTEM (file in the repo root, missing = github) says which CI system
+  # deploys this app; GitLab's pipeline checks it too, so only one of the two acts.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      system: ${{ steps.read.outputs.system }}
+    steps:
+      - uses: actions/checkout@v5
+      - id: read
+        run: echo "system=$(cat DEPLOY_SYSTEM 2>/dev/null || echo github)" >> "${GITHUB_OUTPUT}"
+
   build-deploy:
+    needs: gate
+    if: needs.gate.outputs.system == 'github'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

@@ -1,0 +1,16 @@
+# Push to staging: build the image once, then ask the platform to deploy it to staging.
+# Push (merge) to main: no build; ask the platform to promote the same image to prod.
+# All logic is in ci/gitlab-build-deploy.sh; this file only decides when it runs and where.
+# DEPLOY_SYSTEM (file in the repo root) says which CI system deploys this app; the GitHub
+# workflow checks it too, so only one of the two ever acts.
+# The job runs on the group runner (tag: builder) on the cluster PC, which has Docker and
+# Git Bash; the runner shell is PowerShell, so the job is one line handing off to bash.
+
+build-deploy:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging" || $CI_COMMIT_BRANCH == "main"
+  tags: [builder]
+  variables:
+    PLATFORM_PROJECT_ID: "88234882"
+  script:
+    - C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail ci/gitlab-build-deploy.sh
