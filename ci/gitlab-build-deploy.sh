@@ -8,7 +8,8 @@
 # Needs: PLATFORM_TRIGGER_TOKEN (masked, protected variable), PLATFORM_PROJECT_ID (.gitlab-ci.yml).
 set -euo pipefail
 
-system="$(cat DEPLOY_SYSTEM 2>/dev/null || echo github)"
+# ci/deploy-system.sh exits 1 on a value it does not know; set -e stops the job there
+system="$(bash ci/deploy-system.sh)"
 if [ "${system}" != gitlab ]; then
   echo "DEPLOY_SYSTEM is ${system}, not gitlab; skipping"
   exit 0
