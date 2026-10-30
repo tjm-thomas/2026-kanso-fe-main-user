@@ -26,6 +26,7 @@ concurrency:
 jobs:
   # DEPLOY_SYSTEM (file in the repo root, missing = github) says which CI system
   # deploys this app; GitLab's pipeline checks it too, so only one of the two acts.
+  # An unrecognised value fails here.
   gate:
     runs-on: ubuntu-latest
     outputs:
@@ -33,7 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - id: read
-        run: echo "system=$(cat DEPLOY_SYSTEM 2>/dev/null || echo github)" >> "${GITHUB_OUTPUT}"
+        # bash ci/...: scripts are stored without the executable bit. An unknown value
+        # fails this job instead of skipping the deploy on both systems.
+        run: |
+          system="$(bash ci/deploy-system.sh)"
+          echo "system=${system}" >> "${GITHUB_OUTPUT}"
 
   build-deploy:
     needs: gate
